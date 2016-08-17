@@ -5,6 +5,7 @@
  */
 package tdd.program1psp.util;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import org.junit.After;
@@ -132,19 +133,19 @@ public class UtilsTest {
     @Test
     public void testReadText() throws IOException {
         System.out.println("* Prueba para la lectura del archivo con los datos");
-        LinkedList helperList = Utils.getData("file.txt");
+        LinkedList helperList = Utils.getData(new File("src/tdd/program1psp/files/file.txt"));
     }
     
     @Test(expected=FileNotFoundException.class)
     public void testReadTextNoFile() throws IOException {
         System.out.println("* Prueba para excepción cuando archivo no existe");
-        LinkedList helperList = Utils.getData("noFile.txt");
+        LinkedList helperList = Utils.getData(new File("src/tdd/program1psp/files/noFile.txt"));
     }
     
     @Test
     public void testData() throws IOException {
         System.out.println("* Prueba para toda la funcionalidad");
-        LinkedList helperList = Utils.getData("testFile.txt");
+        LinkedList helperList = Utils.getData(new  File("src/tdd/program1psp/files/testFile.txt"));
         Node p = helperList.getHead();
         assertEquals(404, p.getData(), 0.01);
         p = p.getNext();
@@ -158,7 +159,7 @@ public class UtilsTest {
     @Test
     public void testAll() throws IOException {
         System.out.println("* Prueba para toda la funcionalidad");
-        LinkedList helperList = Utils.getData("testFile.txt");
+        LinkedList helperList = Utils.getData(new File("src/tdd/program1psp/files/testFile.txt"));
         double mean = Utils.calculateMean(helperList);
         double stdDev = Utils.calculateStdDev(helperList);
         assertEquals(309.75, mean, 0.01);
