@@ -3,10 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tdd.program1psp;
+package tdd.program1psp.ui;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import tdd.program1psp.util.Utils;
+import tdd.program1psp.model.LinkedList;
+import tdd.program1psp.model.Node;
 
 /**
  *
@@ -14,11 +22,15 @@ import javax.swing.JFileChooser;
  */
 public class Program1PSPUI extends javax.swing.JFrame {
 
+    File file;
+    LinkedList dataList;
+    
     /**
      * Creates new form Program1PSPUI
      */
     public Program1PSPUI() {
         initComponents();
+        this.setTitle("Programa 1");
     }
 
     /**
@@ -31,18 +43,18 @@ public class Program1PSPUI extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        search = new javax.swing.JButton();
-        load = new javax.swing.JButton();
-        nameFile = new javax.swing.JLabel();
+        btnSearch = new javax.swing.JButton();
+        btnLoad = new javax.swing.JButton();
+        txtNameFile = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        dates = new javax.swing.JTextArea();
+        txtData = new javax.swing.JTextArea();
         jLabel3 = new javax.swing.JLabel();
-        calculate = new javax.swing.JButton();
-        stdDev = new javax.swing.JLabel();
+        btnCalculate = new javax.swing.JButton();
+        txtStdDev = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        exit = new javax.swing.JButton();
-        mean = new javax.swing.JLabel();
+        btnExit = new javax.swing.JButton();
+        txtMean = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
 
@@ -50,17 +62,22 @@ public class Program1PSPUI extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        search.setText("Buscar");
-        search.addActionListener(new java.awt.event.ActionListener() {
+        btnSearch.setText("Buscar");
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchActionPerformed(evt);
+                btnSearchActionPerformed(evt);
             }
         });
 
-        load.setText("Cargar");
+        btnLoad.setText("Cargar");
+        btnLoad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoadActionPerformed(evt);
+            }
+        });
 
-        nameFile.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
-        nameFile.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtNameFile.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
+        txtNameFile.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -68,55 +85,60 @@ public class Program1PSPUI extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(99, 99, 99)
-                .addComponent(search)
+                .addComponent(btnSearch)
                 .addGap(18, 18, 18)
-                .addComponent(load, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnLoad, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(nameFile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtNameFile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addComponent(nameFile, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtNameFile, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(search)
-                    .addComponent(load))
+                    .addComponent(btnSearch)
+                    .addComponent(btnLoad))
                 .addContainerGap())
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        dates.setEditable(false);
-        dates.setColumns(20);
-        dates.setLineWrap(true);
-        dates.setRows(5);
-        jScrollPane1.setViewportView(dates);
+        txtData.setEditable(false);
+        txtData.setColumns(20);
+        txtData.setLineWrap(true);
+        txtData.setRows(5);
+        jScrollPane1.setViewportView(txtData);
 
         jLabel3.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
         jLabel3.setText("Media");
 
-        calculate.setText("Calcular");
+        btnCalculate.setText("Calcular");
+        btnCalculate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCalculateActionPerformed(evt);
+            }
+        });
 
-        stdDev.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
-        stdDev.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtStdDev.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
+        txtStdDev.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel5.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
         jLabel5.setText("Desviacion Est.");
 
-        exit.setText("Salir");
-        exit.addActionListener(new java.awt.event.ActionListener() {
+        btnExit.setText("Salir");
+        btnExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                exitActionPerformed(evt);
+                btnExitActionPerformed(evt);
             }
         });
 
-        mean.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
-        mean.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtMean.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
+        txtMean.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -125,28 +147,26 @@ public class Program1PSPUI extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtStdDev, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtMean, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel3)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(stdDev, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel5)
-                                    .addComponent(mean, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel5))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addComponent(calculate)
+                                .addComponent(btnCalculate)
                                 .addGap(48, 48, 48))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addComponent(exit, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(49, 49, 49))))))
         );
         jPanel3Layout.setVerticalGroup(
@@ -157,17 +177,17 @@ public class Program1PSPUI extends javax.swing.JFrame {
                     .addComponent(jScrollPane1)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(12, 12, 12)
-                        .addComponent(calculate)
+                        .addComponent(btnCalculate)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(mean, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtMean, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(stdDev, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtStdDev, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(exit)
+                        .addComponent(btnExit)
                         .addGap(0, 25, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -223,19 +243,39 @@ public class Program1PSPUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         // TODO add your handling code here:
         System.exit(0);
-    }//GEN-LAST:event_exitActionPerformed
+    }//GEN-LAST:event_btnExitActionPerformed
 
-    private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
-        // TODO add your handling code here:
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         JFileChooser selectFile = new JFileChooser();
         selectFile.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-        int resultado = selectFile.showOpenDialog(this);
-        File archivo = selectFile.getSelectedFile();
-        nameFile.setText(archivo.getName());
-    }//GEN-LAST:event_searchActionPerformed
+        selectFile.showOpenDialog(this);
+        file = selectFile.getSelectedFile();
+        txtNameFile.setText(file.getName());
+    }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void btnLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadActionPerformed
+        try {
+            StringBuilder stringData = new StringBuilder();
+            dataList = Utils.getData(file);
+            Node node = dataList.getHead();
+            while (node != null) {
+                stringData.append(Double.toString(node.getData()).concat("\n"));
+                node = node.getNext();
+            }
+            txtData.setText(stringData.toString());
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error cargando el archivo", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnLoadActionPerformed
+
+    private void btnCalculateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculateActionPerformed
+        // TODO add your handling code here:
+        txtMean.setText(Double.toString(Utils.calculateMean(dataList)));
+        txtStdDev.setText(String.format("%.2f", Utils.calculateStdDev(dataList)));
+    }//GEN-LAST:event_btnCalculateActionPerformed
 
     /**
      * @param args the command line arguments
@@ -273,9 +313,10 @@ public class Program1PSPUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton calculate;
-    private javax.swing.JTextArea dates;
-    private javax.swing.JButton exit;
+    private javax.swing.JButton btnCalculate;
+    private javax.swing.JButton btnExit;
+    private javax.swing.JButton btnLoad;
+    private javax.swing.JButton btnSearch;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
@@ -283,10 +324,9 @@ public class Program1PSPUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton load;
-    private javax.swing.JLabel mean;
-    private javax.swing.JLabel nameFile;
-    private javax.swing.JButton search;
-    private javax.swing.JLabel stdDev;
+    private javax.swing.JTextArea txtData;
+    private javax.swing.JLabel txtMean;
+    private javax.swing.JLabel txtNameFile;
+    private javax.swing.JLabel txtStdDev;
     // End of variables declaration//GEN-END:variables
 }

@@ -8,6 +8,7 @@ package tdd.program1psp.util;
 import tdd.program1psp.model.LinkedList;
 import tdd.program1psp.model.Node;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -59,7 +60,7 @@ public class Utils {
         }
     }
     
-    public static LinkedList getData(String file) throws FileNotFoundException, IOException {
+    public static LinkedList getData(File file) throws FileNotFoundException, IOException {
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line = br.readLine();
             double data;
