@@ -36,20 +36,36 @@ public class LinkedListTest {
     @After
     public void tearDown() {
     }
-
+    
+    /**
+     * Prueba creacion de lista, sin parametros en el constructor, ademas de los getters y setters
+     */
     @Test
-    public void testNewLinkedList() {
+    public void testNewEmptyLinkedList() {
         System.out.println("* Prueba creación de lista, con argumentos vacíos, y con getter y setter");
         LinkedList hl = new LinkedList();
         assertNull(hl.getHead());
+    }
+    
+    @Test
+    public void testNewLinkedList() {
         Node helperNode1 = new Node(5);
         LinkedList helperList = new LinkedList(helperNode1);
         assertEquals(5.0, helperList.getHead().getData(), 0.01);
+    }
+    
+    @Test
+    public void testChangeHeadLinkedList(){
+        Node helperNode1 = new Node(5);
+        LinkedList helperList = new LinkedList(helperNode1);
         Node helperNode2 = new Node(8);
         helperList.setHead(helperNode2);
         assertEquals(8.0, helperList.getHead().getData(), 0.01);
     }
     
+    /**
+     * Prueba para insertar nodos al final de la lista, 
+     */
     @Test
     public void testAddNodeEmptyList() {
         System.out.println("* Prueba insertar nodo al final cuando la lista está vacía");
