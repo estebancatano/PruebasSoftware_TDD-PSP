@@ -14,7 +14,9 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author MattNP
+ * @author Mateo Noreña
+ * @author Joan Morales
+ * @author Esteban Cataño
  */
 public class LinkedListTest {
     
