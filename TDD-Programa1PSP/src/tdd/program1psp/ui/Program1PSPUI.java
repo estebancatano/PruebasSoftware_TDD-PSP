@@ -33,6 +33,8 @@ public class Program1PSPUI extends javax.swing.JFrame {
     public Program1PSPUI() {
         initComponents();
         this.setTitle("Programa 1");
+        btnLoad.setEnabled(false);
+        btnCalculate.setEnabled(false);
     }
 
     /**
@@ -256,6 +258,7 @@ public class Program1PSPUI extends javax.swing.JFrame {
         selectFile.showOpenDialog(this);
         file = selectFile.getSelectedFile();
         txtNameFile.setText(file.getName());
+        btnLoad.setEnabled(true);
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadActionPerformed
@@ -268,8 +271,9 @@ public class Program1PSPUI extends javax.swing.JFrame {
                 node = node.getNext();
             }
             txtData.setText(stringData.toString());
+            btnCalculate.setEnabled(true);
         } catch (Exception e){
-            JOptionPane.showMessageDialog(this, "MESSAGE: ".concat(e.getMessage()), "Error load the file", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Mensaje: ".concat(e.getMessage()), "Error al cargar el archivo", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnLoadActionPerformed
 
