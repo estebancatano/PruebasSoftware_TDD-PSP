@@ -36,7 +36,10 @@ public class NodeTest {
     @After
     public void tearDown() {
     }
-
+    
+    /**
+     * Prueba creación de nodo, con argumentos vacíos, con getters y setters y valores enteros y de tipo double
+    */
     @Test
     public void testNewEmptyNode() {
         System.out.println("* Prueba creación de nodo, con argumentos vacíos, con getter y setter y valores enteros y de tipo double");
@@ -44,28 +47,37 @@ public class NodeTest {
         assertEquals(0.0, h1.getData(), 0.01);
     }
     
+    /**
+     * Prueba creacion de un nodo con parametro en el constructor
+    */
     @Test
     public void testNewNode() {
-        //Crear nodo con pararmetro en constructor
         Node h2 = new Node(5);
         assertEquals(5.0, h2.getData(), 0.01);
     }
     
+    /**
+     * Prueba para cambiar el dato de un nodo
+    */
     @Test
     public void testChangeDataNode() {
-        //Cambiar dato del nodo
         Node h2 = new Node(5);
         h2.setData(6);
         assertEquals(6.0, h2.getData(), 0.01);
     }
     
+    /**
+     * Prueba creacion de nodo con dato de tipo double
+    */
     @Test
     public void testNewNodeDoubleData() {
-        //Crear nodo con dato double
         Node h3 = new Node(4.8);
         assertEquals(4.8, h3.getData(), 0.01);
     }
     
+    /**
+     * Prueba obtencion de nodo siguiente cuando es nulo
+    */
     @Test
     public void testNext() {
         System.out.println("* Prueba de obtención de nodo siguiente");
@@ -73,9 +85,11 @@ public class NodeTest {
         assertNull(helper.getNext());
     }   
     
+    /**
+     * Prueba obtencion de nodo siguiente cuando no es nulo
+    */
     @Test
     public void textNextNoNull() {
-        //testNextNo Null
         Node helper = new Node(5);
         Node helperNext = new Node(8);
         helper.setNext(helperNext);

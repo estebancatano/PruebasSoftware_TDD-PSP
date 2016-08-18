@@ -43,7 +43,7 @@ public class UtilsTest {
     }
 
     /**
-     * Test of mean method, of class Utils.
+     * Prueba calcular media en una lista vacia
      */
     @Test
     public void testMeanEmptyList() {
@@ -52,6 +52,7 @@ public class UtilsTest {
         double mean = Utils.calculateMean(helperList);
         assertEquals(0, mean, 0.01);
     }
+    
     
     @Test
     public void testMeanDataList() {
@@ -100,6 +101,9 @@ public class UtilsTest {
         assertEquals(-19.33, mean, 0.01);
     }
     
+    /**
+     * Prueba calcular la desviacion estandar de una lista vacia
+     */
     @Test
     public void testStdDevEmptyList() {
         System.out.println("* Prueba para calcular la desviación estándar de una lista vacía");
@@ -130,12 +134,20 @@ public class UtilsTest {
         assertEquals(1.92, stdDev, 0.01);
     }
     
+    /**
+     * Prueba lectura del archivo con los datos, cuando el archivo existe
+     * @throws IOException 
+     */
     @Test
     public void testReadText() throws IOException {
         System.out.println("* Prueba para la lectura del archivo con los datos");
         LinkedList helperList = Utils.getData(new File("src/tdd/program1psp/files/file.txt"));
     }
     
+    /**
+     * Prueba para lectura del archivo con los datos, cuando el archivo no existe
+     * @throws IOException 
+     */
     @Test(expected=FileNotFoundException.class)
     public void testReadTextNoFile() throws IOException {
         System.out.println("* Prueba para excepción cuando archivo no existe");

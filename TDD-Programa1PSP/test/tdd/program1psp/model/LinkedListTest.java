@@ -38,7 +38,7 @@ public class LinkedListTest {
     }
     
     /**
-     * Prueba creacion de lista, sin parametros en el constructor, ademas de los getters y setters
+     * Prueba creacion de lista vacia, sin parametros en el constructor, ademas de los getters y setters
      */
     @Test
     public void testNewEmptyLinkedList() {
@@ -46,7 +46,9 @@ public class LinkedListTest {
         LinkedList hl = new LinkedList();
         assertNull(hl.getHead());
     }
-    
+    /**
+     * Prueba creacion de una nueva lista con parametro en el constructor
+     */
     @Test
     public void testNewLinkedList() {
         Node helperNode1 = new Node(5);
@@ -54,6 +56,9 @@ public class LinkedListTest {
         assertEquals(5.0, helperList.getHead().getData(), 0.01);
     }
     
+    /**
+     * Prueba para cambiar la cabeza de una lista
+     */
     @Test
     public void testChangeHeadLinkedList(){
         Node helperNode1 = new Node(5);
@@ -64,7 +69,7 @@ public class LinkedListTest {
     }
     
     /**
-     * Prueba para insertar nodos al final de la lista, 
+     * Prueba para agregar un nodo al final en una lista vacia
      */
     @Test
     public void testAddNodeEmptyList() {
@@ -75,6 +80,9 @@ public class LinkedListTest {
         assertEquals(8.0, helperList.getHead().getData(), 0.01);
     }
     
+    /**
+     * Prueba para agregar un nodo al final en una lista no vacia
+     */
     @Test
     public void testAddNodeNonEmptyList() {
         System.out.println("* Prueba insertar nodo al final cuando la lista no está vacía");
@@ -93,6 +101,10 @@ public class LinkedListTest {
         assertEquals(6.0, helperNodeP.getData(), 0.01);
     }
     
+    
+    /**
+     * Prueba para eliminar un nodo cuando la lista esta vacia
+     */
     @Test
     public void testRemoveNodeNoData() {
         System.out.println("* Prueba eliminar nodo cuando la lista está vacía");
@@ -100,6 +112,9 @@ public class LinkedListTest {
         helperList.removeNode(8);
     }
     
+    /**
+     * Prueba para eliminar un nodo cuando el dato no esta en la lista
+     */
     @Test
     public void testRemoveNodeNoDataFound() {
         System.out.println("* Prueba eliminar nodo cuando el dato no se encuentra");
@@ -117,6 +132,9 @@ public class LinkedListTest {
         assertEquals(6, helperNodeP.getData(), 0.01);
     }
     
+    /**
+     * Prueba para eliminar un nodo cuando este se encuentra al principio(cabeza de la lista)
+     */
     @Test
     public void testRemoveNodeDataFoundHead() {
         System.out.println("* Prueba eliminar nodo cuando el dato se encuentra al principio de la lista");
@@ -130,6 +148,10 @@ public class LinkedListTest {
         assertEquals(5, helperNodeP.getData(), 0.01);
     }
     
+    /**
+     * Prueba para eliminar un nodo cuando se encuentra al principio 
+     * y solo hay un nodo en la lista
+     */
     @Test
     public void testRemoveNodeDataFoundOnlyHead() {
         System.out.println("* Prueba eliminar nodo cuando el dato se encuentra al principio de la lista y solo hay un nodo en la lista");
@@ -139,6 +161,9 @@ public class LinkedListTest {
         assertNull(helperNodeP);
     }
     
+    /**
+     * Prueba para eliminar un nodo cuando se encuentra en cualquier lugar
+     */
     @Test
     public void testRemoveNodeDataFound() {
         System.out.println("* Prueba eliminar nodo cuando el dato se encuentra en cualquier lugar de la lista");
