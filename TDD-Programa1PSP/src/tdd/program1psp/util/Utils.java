@@ -15,7 +15,9 @@ import java.io.IOException;
 
 /**
  *
- * @author mateo.norena
+ * @author Mateo Noreña
+ * @author Joan Morales
+ * @author Esteban Cataño
  */
 public class Utils {
     

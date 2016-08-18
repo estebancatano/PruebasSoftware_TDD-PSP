@@ -18,7 +18,9 @@ import tdd.program1psp.model.Node;
 
 /**
  *
- * @author ccamilo.isaza
+ * @author Mateo Noreña
+ * @author Joan Morales
+ * @author Esteban Cataño
  */
 public class Program1PSPUI extends javax.swing.JFrame {
 
@@ -267,13 +269,13 @@ public class Program1PSPUI extends javax.swing.JFrame {
             }
             txtData.setText(stringData.toString());
         } catch (Exception e){
-            JOptionPane.showMessageDialog(this, e.getMessage(), "Error cargando el archivo", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "MESSAGE: ".concat(e.getMessage()), "Error load the file", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnLoadActionPerformed
 
     private void btnCalculateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculateActionPerformed
         // TODO add your handling code here:
-        txtMean.setText(Double.toString(Utils.calculateMean(dataList)));
+        txtMean.setText(String.format("%.2f",Utils.calculateMean(dataList)));
         txtStdDev.setText(String.format("%.2f", Utils.calculateStdDev(dataList)));
     }//GEN-LAST:event_btnCalculateActionPerformed
 

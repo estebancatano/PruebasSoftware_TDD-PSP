@@ -7,7 +7,9 @@ package tdd.program1psp.model;
 
 /**
  *
- * @author MattNP
+ * @author Mateo Noreña
+ * @author Joan Morales
+ * @author Esteban Cataño
  */
 public class LinkedList {
     
