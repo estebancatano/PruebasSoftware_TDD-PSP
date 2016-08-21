@@ -28,7 +28,7 @@ public class LinkedList {
         this.head = head;
     }
 
-    void addNode(Node newNode) {
+    public void addNode(Node newNode) {
         if (head == null) {
             head = newNode;
         } else {
@@ -40,7 +40,7 @@ public class LinkedList {
         }
     }
 
-    void removeNode(Node node) {
+    public void removeNode(Node node) {
         if(head != null) {
             if(head == node) {
                 head = head.getNext();
