@@ -11,5 +11,6 @@ package tddprogram2psp.util;
  * @author Esteban Cataño
  */
 public class MathUtils {
+
     
 }
