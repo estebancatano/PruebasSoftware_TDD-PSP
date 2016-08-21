@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tdd.program1psp.util;
+package tddprogram1psp.util;
 
+import tddprogram1psp.util.Utils;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -14,8 +15,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import tdd.program1psp.model.LinkedList;
-import tdd.program1psp.model.Node;
+import tddProgram1PSP.model.LinkedList;
+import tddProgram1PSP.model.Node;
 
 /**
  *

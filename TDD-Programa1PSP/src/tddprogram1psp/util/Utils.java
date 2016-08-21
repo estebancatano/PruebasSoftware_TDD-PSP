@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tdd.program1psp.util;
+package tddprogram1psp.util;
 
-import tdd.program1psp.model.LinkedList;
-import tdd.program1psp.model.Node;
+import tddProgram1PSP.model.LinkedList;
+import tddProgram1PSP.model.Node;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
