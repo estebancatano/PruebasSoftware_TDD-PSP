@@ -43,7 +43,7 @@ public class NodeTest {
      */
     @Test
     public void testNewEmptyNode() {
-        System.out.println("*Prueba creación de nodo sin parámetros en el constructor");
+        System.out.println("*Prueba: Crear un nodo sin parámetros en el constructor");
         Node h1 = new Node();
         assertEquals(0.0, h1.getData1(), 0.01);
         assertEquals(0.0, h1.getData1(), 0.01);
@@ -54,7 +54,7 @@ public class NodeTest {
     */
     @Test
     public void testNewNode() {
-        System.out.println("*Prueba creación de nodo con parámetros en el constructor");
+        System.out.println("*Prueba: Crear un nodo con parámetros en el constructor");
         Node h2 = new Node(5, 7);
         assertEquals(5.0, h2.getData1(), 0.01);
         assertEquals(7.0, h2.getData2(), 0.01);
@@ -65,7 +65,7 @@ public class NodeTest {
     */
     @Test
     public void testChangeDataNode() {
-        System.out.println("*Prueba para cambiar el dato de un nodo");
+        System.out.println("*Prueba: Cambiar el dato de un nodo");
         Node h2 = new Node(5,8);
         h2.setData1(7);
         h2.setData2(9);
@@ -78,7 +78,7 @@ public class NodeTest {
     */
     @Test
     public void testNewNodeDoubleData() {
-        System.out.println("*Prueba creacion de nodo con dato de tipo double");
+        System.out.println("*Prueba: Crear un nodo con dato de tipo double");
         Node h3 = new Node(4.8,7.3);
         assertEquals(4.8, h3.getData1(), 0.01);
         assertEquals(7.3, h3.getData2(), 0.01);
@@ -89,8 +89,8 @@ public class NodeTest {
     */
     @Test
     public void testNext() {
-        System.out.println("*Prueba de obtención de nodo siguiente");
-        Node helper = new Node(5,6.5);
+        System.out.println("*Prueba: Obtener el nodo siguiente");
+        Node helper = new Node();
         assertNull(helper.getNext());
     }   
     
@@ -99,10 +99,10 @@ public class NodeTest {
     */
     @Test
     public void textNextNoNull() {
-        Node helper = new Node(5,6.5);
-        Node helperNext = new Node(3.4,8);
+        System.out.println("*Prueba: Obtener el nodo siguiente cuando no es nulo");
+        Node helper = new Node();
+        Node helperNext = new Node();
         helper.setNext(helperNext);
-        assertEquals(3.4, helper.getNext().getData1(), 0.01);
-        assertEquals(8.0, helper.getNext().getData2(), 0.01);
+        assertEquals(helperNext, helper.getNext());
     }
 }
