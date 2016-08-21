@@ -6,7 +6,6 @@
 package tddProgram1PSP.model;
 
 /**
- *
  * @author Mateo Noreña
  * @author Joan Morales
  * @author Esteban Cataño
