@@ -169,9 +169,9 @@ public class Program2PSPGUI extends javax.swing.JFrame {
 
         jTextField5.setEditable(false);
 
-        jLabel7.setText("jLabel7");
+        jLabel7.setText("Parametros");
 
-        jLabel8.setText("jLabel8");
+        jLabel8.setText("Correlacion");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
