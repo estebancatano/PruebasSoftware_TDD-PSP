@@ -178,7 +178,7 @@ public class MathUtilsTest {
      */
     @Test
     public void testMeanBadIndex(){
-        System.out.println("Prueba: Calcular la media de cuando se pasa un mal indíce");
+        System.out.println("*Prueba: Calcular la media de cuando se pasa un mal indíce");
         LinkedList helperList = new LinkedList(new Node(-40.5,17.3));
         helperList.addNode(new Node(38.3,-22.8));
         helperList.addNode(new Node(56.4,-39.6));
