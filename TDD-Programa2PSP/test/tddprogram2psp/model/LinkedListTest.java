@@ -142,7 +142,7 @@ public class LinkedListTest {
      */
     @Test
     public void testRemoveNodeFoundHead() {
-        System.out.println("* Prueba: Eliminar nodo cuando este se encuentra al principio de la lista");
+        System.out.println("*Prueba: Eliminar nodo cuando este se encuentra al principio de la lista");
         Node helperNode = new Node();
         LinkedList helperList = new LinkedList(helperNode);
         Node helperNode1 = new Node();
@@ -156,7 +156,7 @@ public class LinkedListTest {
     
     @Test
     public void testRemoveNodeFoundOnlyHead() {
-        System.out.println("* Prueba: Eliminar nodo cuando este se encuentra al principio de la lista y solo hay un nodo en la lista");
+        System.out.println("*Prueba: Eliminar nodo cuando este se encuentra al principio de la lista y solo hay un nodo en la lista");
         Node helperNode = new Node();
         LinkedList helperList = new LinkedList(helperNode);
         helperList.removeNode(helperNode);
@@ -168,7 +168,7 @@ public class LinkedListTest {
      */
     @Test
     public void testRemoveNodeDataFound() {
-        System.out.println("* Prueba: Eliminar nodo cuando este se encuentra en cualquier lugar de la lista");
+        System.out.println("*Prueba: Eliminar nodo cuando este se encuentra en cualquier lugar de la lista");
         Node helperNode = new Node();
         LinkedList helperList = new LinkedList(helperNode);
         Node helperNode1 = new Node();

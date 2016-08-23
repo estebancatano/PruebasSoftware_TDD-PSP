@@ -36,6 +36,43 @@ public class MathUtils {
             return mean;
         }
     }
+    
+    public static double calculateSum(LinkedList list,int index, int power) throws BadIndexException{
+        if(index < 0 || index > 1){
+            throw new BadIndexException();
+        }
+        if(list.getHead() == null) {
+            return 0;
+        } else {
+            double sum, mean, n;
+            sum = 0;
+            n = 0;
+            Node p = list.getHead();
+            while(p != null) {
+                sum += Math.pow((index == 0)?p.getData1():p.getData2(),power);
+                n++;
+                p = p.getNext();
+            }
+            return sum;
+        }
+    }
+
+    static double calculateSumMult(LinkedList list) {
+        if(list.getHead() == null) {
+            return 0;
+        } else {
+            double sum, mean, n;
+            sum = 0;
+            n = 0;
+            Node p = list.getHead();
+            while(p != null) {
+                sum += (p.getData1()*p.getData2());
+                n++;
+                p = p.getNext();
+            }
+            return sum;
+        }
+    }
 
     
 }
