@@ -5,6 +5,7 @@
  */
 package tddprogram2psp.model;
 
+import tddprogram2psp.util.exception.ZeroDivideException;
 import tddprogram2psp.util.MathUtils;
 import tddprogram2psp.util.exception.BadIndexException;
 
@@ -21,7 +22,7 @@ public class Regression {
         this.list = list;
     }
 
-    public double[] calculateParameters() throws BadIndexException {
+    public double[] calculateParameters() throws BadIndexException, ZeroDivideException {
         double parameters[];
         double xAvg;
         double yAvg;
@@ -39,11 +40,43 @@ public class Regression {
         } else {
             num = MathUtils.calculateSumMult(list) - (n * xAvg * yAvg);
             den = MathUtils.calculateSum(list, 0, 2) - (n * Math.pow(xAvg, 2));
+            if(den == 0){
+                throw new ZeroDivideException();
+            }
             b1 = num / den;
             b0 = yAvg - (b1 * xAvg);
         }
         parameters = new double[]{b0, b1};
         return parameters;
+    }
+
+    double[] calculateCorrelations() throws ZeroDivideException, BadIndexException {
+        double correlations[];
+        int n;
+        double sumX;
+        double sumY;
+        double num;
+        double den;
+        double rXY;
+        double r2;
+        n = list.calculateLength();
+        if (n == 0) {
+            rXY = 0;
+            r2 = 0;
+        } else {
+            sumX = MathUtils.calculateSum(list, 0, 1);
+            sumY = MathUtils.calculateSum(list, 1, 1);
+            num = (n*MathUtils.calculateSumMult(list)) - (sumX * sumY);
+            den = ((n*MathUtils.calculateSum(list, 0, 2)) - Math.pow(sumX, 2)) 
+                    * ((n*MathUtils.calculateSum(list, 1, 2)) - Math.pow(sumY, 2));
+            if(den == 0){
+                throw new ZeroDivideException();
+            }
+            rXY = num / Math.sqrt(den);
+            r2 = rXY * rXY;
+        }
+        correlations = new double[]{rXY, r2};
+        return correlations;
     }
 
 }
