@@ -57,7 +57,7 @@ public class MathUtils {
         }
     }
 
-    static double calculateSumMult(LinkedList list) {
+    public static double calculateSumMult(LinkedList list) {
         if(list.getHead() == null) {
             return 0;
         } else {
