@@ -58,7 +58,7 @@ public class LinkedList {
         }
     }    
 
-    public int calculateLength() {
+    public int size() {
         int length = 0;
         Node node = this.head;
         while (node != null) {            

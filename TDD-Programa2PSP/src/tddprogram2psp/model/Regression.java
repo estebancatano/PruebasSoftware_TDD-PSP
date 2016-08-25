@@ -33,7 +33,7 @@ public class Regression {
         double b0;
         xAvg = MathUtils.calculateMean(list, 0);
         yAvg = MathUtils.calculateMean(list, 1);
-        n = list.calculateLength();
+        n = list.size();
         if (n == 0) {
             b1 = 0;
             b0 = 0;
@@ -59,7 +59,7 @@ public class Regression {
         double den;
         double rXY;
         double r2;
-        n = list.calculateLength();
+        n = list.size();
         if (n == 0) {
             rXY = 0;
             r2 = 0;

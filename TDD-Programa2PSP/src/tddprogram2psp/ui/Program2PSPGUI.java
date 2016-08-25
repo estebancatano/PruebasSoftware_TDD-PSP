@@ -5,11 +5,25 @@
  */
 package tddprogram2psp.ui;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.RenderingHints;
+import java.awt.Stroke;
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import tddprogram2psp.model.LinkedList;
 import tddprogram2psp.model.Node;
+import tddprogram2psp.util.SystemUtils;
+import tddprogram2psp.util.exception.ValuesNumberException;
 
 /**
  * @author Mateo Noreña
@@ -23,7 +37,7 @@ public class Program2PSPGUI extends javax.swing.JFrame {
      */
     File file;
     LinkedList dataList;
-    
+
     public Program2PSPGUI() {
         initComponents();
         btnCalculate.setEnabled(false);
@@ -61,7 +75,7 @@ public class Program2PSPGUI extends javax.swing.JFrame {
         jTextField5 = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
+        jPanel5 = new Canvas();
         jPanel7 = new javax.swing.JPanel();
         jTextField6 = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
@@ -152,6 +166,11 @@ public class Program2PSPGUI extends javax.swing.JFrame {
         jPanel4.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
 
         btnCalculate.setText("Calcular");
+        btnCalculate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCalculateActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("jLabel3");
 
@@ -210,7 +229,7 @@ public class Program2PSPGUI extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(56, 56, 56)
                         .addComponent(jLabel7)))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -258,6 +277,8 @@ public class Program2PSPGUI extends javax.swing.JFrame {
         );
 
         jPanel5.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
+        jPanel5.setPreferredSize(new java.awt.Dimension(530, 200));
+        jPanel5.setVerifyInputWhenFocusTarget(false);
 
         jPanel7.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
 
@@ -297,7 +318,7 @@ public class Program2PSPGUI extends javax.swing.JFrame {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(95, Short.MAX_VALUE))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
 
         btnExit.setText("Salir");
@@ -378,16 +399,36 @@ public class Program2PSPGUI extends javax.swing.JFrame {
 
     private void btnLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadActionPerformed
         // TODO add your handling code here:
+        try {
+            StringBuilder stringData = new StringBuilder();
+            String data1String, data2String;
+            dataList = SystemUtils.getData(file);
+            Node node = dataList.getHead();
+            while (node != null) {
+                data1String = Double.toString(node.getData1());
+                data2String = Double.toString(node.getData2());
+                stringData.append(data1String).append(",").append(data2String).append("\n");
+                node = node.getNext();
+            }
+            txtData.setText(stringData.toString());
+            btnCalculate.setEnabled(true);
+        } catch (IOException | ValuesNumberException e) {
+            JOptionPane.showMessageDialog(this, "Mensaje: ".concat(e.getMessage()), "Error al cargar el archivo", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnLoadActionPerformed
+
+    private void btnCalculateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculateActionPerformed
+        // TODO add your handling code here:
+        Canvas jPanelC = (Canvas)jPanel5;
+        jPanelC.setValues(dataList);
+        jPanelC.repaint();
+    }//GEN-LAST:event_btnCalculateActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        
-        Double d = Double.parseDouble("5454asd");
-        System.out.println("d");
-        
+
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -418,7 +459,7 @@ public class Program2PSPGUI extends javax.swing.JFrame {
                 new Program2PSPGUI().setVisible(true);
             }
         });
-       
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -452,4 +493,170 @@ public class Program2PSPGUI extends javax.swing.JFrame {
     private javax.swing.JTextArea txtData;
     private javax.swing.JTextField txtNameFile;
     // End of variables declaration//GEN-END:variables
+}
+
+class Canvas extends JPanel {
+
+    private final int width = 400;
+    private final int height = 200;
+    private final int padding = 25;
+    private final int labelPadding = 25;
+    private final Color lineColor = new Color(44, 102, 230, 180);
+    private final Color pointColor = new Color(100, 100, 100, 180);
+    private final Color gridColor = new Color(200, 200, 200, 200);
+    private static final Stroke GRAPH_STROKE = new BasicStroke(2f);
+    private final int pointWidth = 4;
+    private final int numberYDivisions = 10;
+    private final int numberXDivisions = 5;
+    private LinkedList values;
+
+    public LinkedList getValues() {
+        return values;
+    }
+
+    public void setValues(LinkedList values) {
+        this.values = values;
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+
+        if (values != null) {
+
+            super.paintComponent(g);
+            Graphics2D g2 = (Graphics2D) g;
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+           double xScale = ((double) width - 2 * padding - labelPadding) / (getMaxValue(1) - getMinValue(1));
+           double yScale = ((double) height - 2 * padding - labelPadding) / (getMaxValue(2) - getMinValue(2));
+
+            List<Point> graphPoints = new ArrayList<>();
+            Node p = values.getHead();
+            while (p != null) {
+                int x1 = (int) ((getMinValue(1) + p.getData1()) * xScale + padding);
+                //int x1 = (int) ((getMaxValue(1) - p.getData1()) * xScale + padding);
+                int y1 = (int) ((getMaxValue(2) - p.getData2()) * yScale + padding);
+                System.out.println(x1 + "," + y1);
+                graphPoints.add(new Point(x1, y1));
+                p = p.getNext();
+            }
+
+            // draw white background
+            g2.setColor(Color.WHITE);
+            g2.fillRect(padding + labelPadding, padding, width - (2 * padding) - labelPadding, height - 2 * padding - labelPadding);
+            g2.setColor(Color.BLACK);
+
+            // create hatch marks and grid lines for y axis.
+            for (int i = 0; i < numberYDivisions + 1; i++) {
+                int x0 = padding + labelPadding;
+                int x1 = pointWidth + padding + labelPadding;
+                int y0 = height - ((i * (height - padding * 2 - labelPadding)) / numberYDivisions + padding + labelPadding);
+                int y1 = y0;
+                if (values.size() > 0) {
+                    g2.setColor(gridColor);
+                    g2.drawLine(padding + labelPadding + 1 + pointWidth, y0, width - padding, y1);
+                    g2.setColor(Color.BLACK);
+                    String yLabel = ((int) ((getMinValue(2) + (getMaxValue(2) - getMinValue(2)) * ((i * 1.0) / numberYDivisions)) * 100)) / 100.0 + "";
+                    FontMetrics metrics = g2.getFontMetrics();
+                    int labelWidth = metrics.stringWidth(yLabel);
+                    g2.drawString(yLabel, x0 - labelWidth - 5, y0 + (metrics.getHeight() / 2) - 3);
+                }
+                g2.drawLine(x0, y0, x1, y1);
+            }
+
+            // and for x axis
+            for (int i = 0; i < numberXDivisions+1; i++) {
+
+                int x0 = i * (width - padding * 2 - labelPadding) / (values.size() - 1) + padding + labelPadding;
+                int x1 = x0;
+                int y0 = height - padding - labelPadding;
+                int y1 = y0 - pointWidth;
+
+                if (values.size() > 0) {
+                    g2.setColor(gridColor);
+                    g2.drawLine(x0, height - padding - labelPadding - 1 - pointWidth, x1, padding);
+                    g2.setColor(Color.BLACK);
+                    String xLabel = ((int) ((getMinValue(1) + (getMaxValue(1) - getMinValue(1)) * ((i * 1.0) / numberXDivisions)) * 100)) / 100.0 + "";
+                    FontMetrics metrics = g2.getFontMetrics();
+                    int labelWidth = metrics.stringWidth(xLabel);
+                    g2.drawString(xLabel, x0 - labelWidth / 2, y0 + metrics.getHeight() + 3);
+                }
+                g2.drawLine(x0, y0, x1, y1);
+            }
+
+//            for (int i = 0; i < values.size(); i++) {
+//                if (values.size() > 1) {
+//                    int x0 = i * (getWidth() - padding * 2 - labelPadding) / (values.size() - 1) + padding + labelPadding;
+//                    int x1 = x0;
+//                    int y0 = height - padding - labelPadding;
+//                    int y1 = y0 - pointWidth;
+//                    if ((i % ((int) ((values.size() / 20.0)) + 1)) == 0) {
+//                        g2.setColor(gridColor);
+//                        g2.drawLine(x0, height - padding - labelPadding - 1 - pointWidth, x1, padding);
+//                        g2.setColor(Color.BLACK);
+//                        String xLabel = i + "";
+//                        FontMetrics metrics = g2.getFontMetrics();
+//                        int labelWidth = metrics.stringWidth(xLabel);
+//                        g2.drawString(xLabel, x0 - labelWidth / 2, y0 + metrics.getHeight() + 3);
+//                    }
+//                    g2.drawLine(x0, y0, x1, y1);
+//                }
+//            }
+            // create x and y axes 
+            
+            g2.drawLine(padding + labelPadding, height - padding - labelPadding, padding + labelPadding, padding);
+            g2.drawLine(padding + labelPadding, height - padding - labelPadding, width - padding, height - padding - labelPadding);
+
+            Stroke oldStroke = g2.getStroke();
+            g2.setColor(lineColor);
+            g2.setStroke(GRAPH_STROKE);
+//            for (int i = 0; i < graphPoints.size() - 1; i++) {
+//                int x1 = graphPoints.get(i).x;
+//                int y1 = graphPoints.get(i).y;
+//                int x2 = graphPoints.get(i + 1).x;
+//                int y2 = graphPoints.get(i + 1).y;
+//                g2.drawLine(x1, y1, x2, y2);
+//            }
+
+            g2.setStroke(oldStroke);
+            g2.setColor(pointColor);
+            for (Point graphPoint : graphPoints) {
+                int x = graphPoint.x - pointWidth / 2;
+                int y = graphPoint.y - pointWidth / 2;
+                int ovalW = pointWidth;
+                int ovalH = pointWidth;
+                g2.fillOval(x, y, ovalW, ovalH);
+            }
+        }
+    }
+
+    private double getMinValue(int index) {
+        double minValue = Double.MAX_VALUE;
+        Node p = values.getHead();
+        while (p != null) {
+            if (index == 1) {
+                minValue = Math.min(minValue, p.getData1());
+            } else {
+                minValue = Math.min(minValue, p.getData2());
+            }
+
+            p = p.getNext();
+        }
+        return minValue;
+    }
+
+    private double getMaxValue(int index) {
+        double maxValue = Double.MIN_VALUE;
+        Node p = values.getHead();
+        while (p != null) {
+            if (index == 1) {
+                maxValue = Math.max(maxValue, p.getData1());
+            } else {
+                maxValue = Math.max(maxValue, p.getData2());
+            }
+
+            p = p.getNext();
+        }
+        return maxValue;
+    }
 }

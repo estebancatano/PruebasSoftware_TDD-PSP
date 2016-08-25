@@ -188,7 +188,7 @@ public class LinkedListTest {
     public void testCalculateLengthEmptyList(){
         System.out.println("*Prueba: Calcular la longitud de la lista cuando esta se encuentra vacía");
         LinkedList helperList = new LinkedList();
-        assertEquals(0, helperList.calculateLength());
+        assertEquals(0, helperList.size());
     }
     
     /**
@@ -201,6 +201,6 @@ public class LinkedListTest {
         helperList.addNode(new Node());
         helperList.addNode(new Node());
         helperList.addNode(new Node());
-        assertEquals(3, helperList.calculateLength());
+        assertEquals(3, helperList.size());
     }
 }
