@@ -97,6 +97,7 @@ public class Program2PSPGUI extends javax.swing.JFrame {
         jLabel1.setText("jLabel1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Programa 2");
         setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
@@ -459,14 +460,20 @@ public class Program2PSPGUI extends javax.swing.JFrame {
             txtData.setText(stringData.toString());
             btnCalculate.setEnabled(true);
         } catch (IOException ioe) {
-            JOptionPane.showMessageDialog(this, "Hola",
+            JOptionPane.showMessageDialog(this, "El archivo seleccionado no cumple con el formato establecido",
                     "Formato de Archivo Incorrecto", JOptionPane.ERROR_MESSAGE);
+            txtNameFile.setText("");
+            btnLoad.setEnabled(false);
         } catch (ValuesNumberException vne) {
             JOptionPane.showMessageDialog(this, "El archivo seleccionado no cumple con el formato establecido",
                     "Formato de Archivo Incorrecto", JOptionPane.ERROR_MESSAGE);
+            txtNameFile.setText("");
+            btnLoad.setEnabled(false);
         } catch (NumberFormatException nfe) {
             JOptionPane.showMessageDialog(this, "El archivo seleccionado contiene datos diferentes a números",
                     "Formato de Archivo Incorrecto", JOptionPane.ERROR_MESSAGE);
+            txtNameFile.setText("");
+            btnLoad.setEnabled(false);
         }
     }//GEN-LAST:event_btnLoadActionPerformed
 
