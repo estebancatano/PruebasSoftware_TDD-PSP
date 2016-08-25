@@ -6,8 +6,9 @@
 package tddprogram2psp.util.exception;
 
 /**
- *
  * @author Mateo Noreña
+ * @author Joan Morales
+ * @author Esteban Cataño
  */
 public class ValuesNumberException extends Exception {
 

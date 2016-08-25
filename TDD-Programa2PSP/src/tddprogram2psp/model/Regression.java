@@ -50,7 +50,7 @@ public class Regression {
         return parameters;
     }
 
-    double[] calculateCorrelations() throws ZeroDivideException, BadIndexException {
+    public double[] calculateCorrelations() throws ZeroDivideException, BadIndexException {
         double correlations[];
         int n;
         double sumX;

@@ -279,6 +279,8 @@ public class Programa1PSPUI extends javax.swing.JFrame {
 
     private void btnCalculateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculateActionPerformed
         // TODO add your handling code here:
+        txtMean.setText(String.format("%.2f",Utils.calculateMean(dataList)));
+        txtStdDev.setText(String.format("%.2f", Utils.calculateStdDev(dataList)));
         repaint();
     }//GEN-LAST:event_btnCalculateActionPerformed
 
