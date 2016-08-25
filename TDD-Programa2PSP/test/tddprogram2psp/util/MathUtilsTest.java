@@ -17,8 +17,9 @@ import tddprogram2psp.model.Node;
 import tddprogram2psp.util.exception.BadIndexException;
 
 /**
- *
- * @author Esteban
+ * @author Mateo Noreña
+ * @author Joan Morales
+ * @author Esteban Cataño
  */
 public class MathUtilsTest {
     
