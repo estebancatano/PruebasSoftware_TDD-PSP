@@ -431,6 +431,16 @@ public class Program2PSPGUI extends javax.swing.JFrame {
         btnLoad.setEnabled(false);
         btnPronostico.setEnabled(false);
         txtX.setEnabled(false);
+        txtX.setText("");
+        txtY.setText("");
+        txtB0.setText("");
+        txtB1.setText("");
+        txtR.setText("");
+        txtR2.setText("");
+        txtData.setText("");
+        Canvas jPanelC = (Canvas) jPanel5;
+        jPanelC.setValues(null);
+        jPanelC.repaint();
         try {
             JFileChooser selectFile = new JFileChooser();
             selectFile.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
@@ -506,7 +516,7 @@ public class Program2PSPGUI extends javax.swing.JFrame {
     private void btnPronosticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPronosticoActionPerformed
         // TODO add your handling code here:
         String txt = txtX.getText();
-        if(txt.length() != 0){
+        if (txt.length() != 0) {
             double x = Double.parseDouble(txt);
             double y = parameters[0] + (parameters[1] * x);
             txtY.setText(String.format("%.2f", y));
@@ -525,10 +535,10 @@ public class Program2PSPGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtXActionPerformed
 
-/**
- * @param args the command line arguments
- */
-public static void main(String args[]) {
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
 
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -540,32 +550,21 @@ public static void main(String args[]) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                
 
-}
+                }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Program2PSPGUI.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } 
-
-catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Program2PSPGUI.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } 
-
-catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Program2PSPGUI.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } 
-
-catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Program2PSPGUI.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Program2PSPGUI.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Program2PSPGUI.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Program2PSPGUI.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Program2PSPGUI.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -639,12 +638,15 @@ class Canvas extends JPanel {
 
     @Override
     protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
+// draw white background
+        g2.setColor(Color.WHITE);
+        g2.fillRect(padding + labelPadding, padding, width - (2 * padding) - labelPadding, height - 2 * padding - labelPadding);
+        g2.setColor(Color.BLACK);
         if (values != null) {
-
-            super.paintComponent(g);
-            Graphics2D g2 = (Graphics2D) g;
-            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
             double xScale = ((double) width - 2 * padding - labelPadding) / (getMaxValue(1) - getMinValue(1));
             double yScale = ((double) height - 2 * padding - labelPadding) / (getMaxValue(2) - getMinValue(2));
@@ -659,11 +661,6 @@ class Canvas extends JPanel {
                 graphPoints.add(new Point(x1, y1));
                 p = p.getNext();
             }
-
-            // draw white background
-            g2.setColor(Color.WHITE);
-            g2.fillRect(padding + labelPadding, padding, width - (2 * padding) - labelPadding, height - 2 * padding - labelPadding);
-            g2.setColor(Color.BLACK);
 
             // create hatch marks and grid lines for y axis.
             for (int i = 0; i < numberYDivisions + 1; i++) {
