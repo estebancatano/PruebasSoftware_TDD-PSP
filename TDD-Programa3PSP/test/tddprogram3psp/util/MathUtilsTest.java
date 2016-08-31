@@ -13,6 +13,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import tddprogram3psp.model.LinkedList;
 import tddprogram3psp.model.Node;
+import tddprogram3psp.util.exception.EmptyListException;
 
 /**
  *
@@ -43,20 +44,21 @@ public class MathUtilsTest {
 
     /**
      * Prueba calcular media en una lista vacia
+     * @throws tddprogram3psp.util.exception.EmptyListException
      */
-    @Test
-    public void testMeanEmptyList() {
+    @Test(expected = EmptyListException.class)
+    public void testMeanEmptyList() throws EmptyListException {
         System.out.println("* Prueba para calcular la media de una lista vacía");
         LinkedList helperList = new LinkedList();
-        double mean = MathUtils.calculateMean(helperList);
-        assertEquals(0, mean, 0.01);
+        MathUtils.calculateMean(helperList);
     }
     
     /**
      * Prueba para calcular la media de una lista con datos positivos enteros
+     * @throws tddprogram3psp.util.exception.EmptyListException
      */
     @Test
-    public void testMeanIntegerDataList() {
+    public void testMeanIntegerDataList() throws EmptyListException {
         System.out.println("* Prueba para calcular la media de una lista con datos positivos enteros");
         LinkedList helperList = new LinkedList(new Node(5));
         helperList.addNode(new Node(8));
@@ -67,9 +69,10 @@ public class MathUtilsTest {
     }
     /**
      * Prueba para calcular la media de una lista con datos positivos reales
+     * @throws tddprogram3psp.util.exception.EmptyListException
      */
     @Test
-    public void testMeanDoubleDataList(){
+    public void testMeanDoubleDataList() throws EmptyListException{
         System.out.println("* Prueba para calcular la media de una lista con datos positivos reales");
         LinkedList helperList = new LinkedList(new Node(40.5));
         helperList.addNode(new Node(38.3));
@@ -79,9 +82,10 @@ public class MathUtilsTest {
     }
     /**
      * Prueba para calcular la media de una lista con datos negativos enteros
+     * @throws tddprogram3psp.util.exception.EmptyListException
      */
     @Test
-    public void testMeanNegativeIntegerData() {
+    public void testMeanNegativeIntegerData() throws EmptyListException {
         System.out.println("* Prueba para calcular la media de una lista con datos negativos enteros");
         LinkedList helperList = new LinkedList(new Node(-5));
         helperList.addNode(new Node(-8));
@@ -92,9 +96,10 @@ public class MathUtilsTest {
     }
     /**
      * Prueba para calcular la media de una lista con datos negativos reales
+     * @throws tddprogram3psp.util.exception.EmptyListException
      */
     @Test
-    public void testMeanNegativeDoubleData(){
+    public void testMeanNegativeDoubleData() throws EmptyListException{
         System.out.println("* Prueba para calcular la media de una lista con datos negativos reales");
         LinkedList helperList = new LinkedList(new Node(-40.5));
         helperList.addNode(new Node(-38.3));
@@ -104,9 +109,10 @@ public class MathUtilsTest {
     }
     /**
      * Prueba para calcular la media de una lista con datos enteros negativos y positivos
+     * @throws tddprogram3psp.util.exception.EmptyListException
      */
     @Test
-    public void testMeanNegativeAndPositiveIntegerData() {
+    public void testMeanNegativeAndPositiveIntegerData() throws EmptyListException {
         System.out.println("* Prueba para calcular la media de una lista con datos enteros negativos y positivos");
         LinkedList helperList = new LinkedList(new Node(-5));
         helperList.addNode(new Node(8));
@@ -116,9 +122,10 @@ public class MathUtilsTest {
     }
     /**
      * Prueba para calcular la media de una lista con datos reales negativos y positivos
+     * @throws tddprogram3psp.util.exception.EmptyListException
      */
     @Test
-    public void testMeanNegativeAndPositiveDoubleData() {
+    public void testMeanNegativeAndPositiveDoubleData() throws EmptyListException {
         System.out.println("* Prueba para calcular la media de una lista con datos enteros negativos y positivos");
         LinkedList helperList = new LinkedList(new Node(-40.5));
         helperList.addNode(new Node(38.3));
@@ -126,38 +133,146 @@ public class MathUtilsTest {
         double mean = MathUtils.calculateMean(helperList);
         assertEquals(18.06, mean, 0.01);
     }
-    
+
     /**
-     * Prueba calcular la desviacion estandar de una lista vacia
+     * Prueba calcular varianza en una lista vacia
+     * @throws tddprogram3psp.util.exception.EmptyListException
      */
-    @Test
-    public void testVarianceEmptyList() {
-        System.out.println("* Prueba para calcular la desviación estándar de una lista vacía");
+    @Test(expected = EmptyListException.class)
+    public void testVarianceEmptyList() throws EmptyListException {
+        System.out.println("* Prueba para calcular la varianza de una lista vacía");
         LinkedList helperList = new LinkedList();
-        double stdDev = MathUtils.calculateVariance(helperList);
-        assertEquals(Double.NaN, stdDev, 0.01);
+        MathUtils.calculateVariance(helperList);
     }
     
     /**
-     * Prueba para calcular la desviación estándar de una lista con datos negativos y positivos 
+     * Prueba para calcular la varianza de una lista con datos positivos enteros
+     * @throws tddprogram3psp.util.exception.EmptyListException
      */
     @Test
-    public void testVariance() {
-        System.out.println("* Prueba para calcular la desviación estándar de una lista con datos negativos y positivos");
-        LinkedList helperList = new LinkedList(new Node(-5));
-        helperList.addNode(new Node(8.0));
-        helperList.addNode(new Node(-4.4));
+    public void testVarianceIntegerDataList() throws EmptyListException {
+        System.out.println("* Prueba para calcular la varianza de una lista con datos positivos enteros");
+        LinkedList helperList = new LinkedList(new Node(5));
+        helperList.addNode(new Node(8));
+        helperList.addNode(new Node(4));
         double variance = MathUtils.calculateVariance(helperList);
-        assertEquals(53.85, variance, 0.01);
-        helperList = new LinkedList(new Node(-5));
-        helperList.addNode(new Node(7.0));
-        helperList.addNode(new Node(-4.4));
-        variance = MathUtils.calculateVariance(helperList);
-        assertEquals(45.72, variance, 0.01);
-        helperList = new LinkedList(new Node(5));
-        helperList.addNode(new Node(8.0));
-        helperList.addNode(new Node(4.4));
-        variance = MathUtils.calculateVariance(helperList);
-        assertEquals(3.72, variance, 0.01);
+        assertEquals(4.33, variance, 0.01);
+        
+    }
+    /**
+     * Prueba para calcular la varianza de una lista con datos positivos reales
+     * @throws tddprogram3psp.util.exception.EmptyListException
+     */
+    @Test
+    public void testVarianceDoubleDataList() throws EmptyListException{
+        System.out.println("* Prueba para calcular la varianza de una lista con datos positivos reales");
+        LinkedList helperList = new LinkedList(new Node(40.5));
+        helperList.addNode(new Node(38.3));
+        helperList.addNode(new Node(56.4));
+        double variance = MathUtils.calculateVariance(helperList);
+        assertEquals(97.54, variance, 0.01);
+    }
+    /**
+     * Prueba para calcular la varianza de una lista con datos negativos enteros
+     * @throws tddprogram3psp.util.exception.EmptyListException
+     */
+    @Test
+    public void testVarianceNegativeIntegerData() throws EmptyListException {
+        System.out.println("* Prueba para calcular la varianza de una lista con datos negativos enteros");
+        LinkedList helperList = new LinkedList(new Node(-5));
+        helperList.addNode(new Node(-8));
+        helperList.addNode(new Node(-4));
+        double variance = MathUtils.calculateVariance(helperList);
+        assertEquals(4.33, variance, 0.01);
+        
+    }
+    /**
+     * Prueba para calcular la varianza de una lista con datos negativos reales
+     * @throws tddprogram3psp.util.exception.EmptyListException
+     */
+    @Test
+    public void testVarianceNegativeDoubleData() throws EmptyListException{
+        System.out.println("* Prueba para calcular la varianza de una lista con datos negativos reales");
+        LinkedList helperList = new LinkedList(new Node(-40.5));
+        helperList.addNode(new Node(-38.3));
+        helperList.addNode(new Node(-56.4));
+        double variance = MathUtils.calculateVariance(helperList);
+        assertEquals(97.54, variance, 0.01);
+    }
+    /**
+     * Prueba para calcular la varianza de una lista con datos enteros negativos y positivos
+     * @throws tddprogram3psp.util.exception.EmptyListException
+     */
+    @Test
+    public void testVarianceNegativeAndPositiveIntegerData() throws EmptyListException {
+        System.out.println("* Prueba para calcular la varianza de una lista con datos enteros negativos y positivos");
+        LinkedList helperList = new LinkedList(new Node(-5));
+        helperList.addNode(new Node(8));
+        helperList.addNode(new Node(-4));
+        double variance = MathUtils.calculateVariance(helperList);
+        assertEquals(52.33, variance, 0.01);
+    }
+    /**
+     * Prueba para calcular la varianza de una lista con datos reales negativos y positivos
+     * @throws tddprogram3psp.util.exception.EmptyListException
+     */
+    @Test
+    public void testVarianceNegativeAndPositiveDoubleData() throws EmptyListException {
+        System.out.println("* Prueba para calcular la varianza de una lista con datos enteros negativos y positivos");
+        LinkedList helperList = new LinkedList(new Node(-40.5));
+        helperList.addNode(new Node(38.3));
+        helperList.addNode(new Node(56.4));
+        double variance = MathUtils.calculateVariance(helperList);
+        assertEquals(2654.44, variance, 0.01);
+    }
+    
+    /**
+     * Prueba para calcular la desviación estándar de una varianza entera positiva
+     */
+    @Test
+    public void testStandardDeviationIntegerPositiveVariance(){
+        System.out.println("* Prueba para calcular la desviación estándar de una varianza entera positiva");
+        double sdtDev = MathUtils.calculateStdDev(85);
+        assertEquals(9.22, sdtDev,0.01);
+    }
+    
+    /**
+     * Prueba para calcular la desviación estándar de una varianza real positiva
+     */
+    @Test
+    public void testStandardDeviationDoublePositiveVariance(){
+        System.out.println("* Prueba para calcular la desviación estándar de una varianza real positiva");
+        double sdtDev = MathUtils.calculateStdDev(67.5);
+        assertEquals(8.22, sdtDev,0.01);
+    }
+    
+    /**
+     * Prueba para calcular la desviación estándar de una varianza cero
+     */
+    @Test
+    public void testStandardDeviationZeroVariance(){
+        System.out.println("* Prueba para calcular la desviación estándar de una varianza cero");
+        double sdtDev = MathUtils.calculateStdDev(0);
+        assertEquals(0, sdtDev,0.01);
+    }
+    
+    /**
+     * Prueba para calcular la desviación estándar de una varianza entera negativa
+     */
+    @Test
+    public void testStandardDeviationIntegerNegativeVariance() {
+        System.out.println("* Prueba para calcular la desviación estándar de una varianza entera negativa");
+        double sdtDev = MathUtils.calculateStdDev(-102);
+        assertEquals(Double.NaN, sdtDev, 0.01);
+    }
+    
+    /**
+     * Prueba para calcular la desviación estándar de una varianza real negativa
+     */
+    @Test
+    public void testStandardDeviationDoubleNegativeVariance() {
+        System.out.println("* Prueba para calcular la desviación estándar de una varianza real negativa");
+        double sdtDev = MathUtils.calculateStdDev(-102);
+        assertEquals(Double.NaN, sdtDev, 0.01);
     }
 }

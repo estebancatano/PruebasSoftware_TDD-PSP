@@ -44,7 +44,7 @@ public class LinkedListTest {
      */
     @Test
     public void testNewEmptyLinkedList() {
-        System.out.println("*Prueba creacion de una nueva lista sin parametro en el constructor");
+        System.out.println("* Prueba creacion de una nueva lista sin parametro en el constructor");
         LinkedList hl = new LinkedList();
         assertNull(hl.getHead());
     }

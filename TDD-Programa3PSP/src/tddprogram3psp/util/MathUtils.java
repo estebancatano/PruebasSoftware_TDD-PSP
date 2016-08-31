@@ -5,6 +5,7 @@
  */
 package tddprogram3psp.util;
 
+import tddprogram3psp.util.exception.EmptyListException;
 import tddprogram3psp.model.LinkedList;
 import tddprogram3psp.model.Node;
 
@@ -16,9 +17,9 @@ import tddprogram3psp.model.Node;
  */
 public class MathUtils {
 
-    public static double calculateMean(LinkedList list) {
+    public static double calculateMean(LinkedList list) throws EmptyListException {
         if (list.getHead() == null) {
-            return 0;
+            throw new EmptyListException();
         } else {
             double sum, mean, n;
             sum = 0;
@@ -34,9 +35,9 @@ public class MathUtils {
         }
     }
 
-    public static double calculateVariance(LinkedList list) {
+    public static double calculateVariance(LinkedList list) throws EmptyListException {
         if (list.getHead() == null) {
-            return Double.NaN;
+            throw new EmptyListException();
         } else {
             double variance, sum, n, mean;
             sum = 0;
@@ -45,15 +46,15 @@ public class MathUtils {
             Node p = list.getHead();
             while (p != null) {
                 n++;
-                p = p.getNext();
-            }
-            p = list.getHead();
-            while (p != null) {
                 sum += Math.pow(p.getData() - mean, 2);
                 p = p.getNext();
             }
             variance = sum / (n - 1);
             return variance;
         }
+    }
+
+    public static double calculateStdDev(double variance) {
+        return Math.sqrt(variance);
     }
 }
