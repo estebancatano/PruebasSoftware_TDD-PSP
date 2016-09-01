@@ -5,18 +5,18 @@
  */
 package tddprogram3psp.ui;
 
-import java.awt.BorderLayout;
-import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.border.EmptyBorder;
 import tddprogram3psp.model.LinkedList;
 import tddprogram3psp.model.Node;
+import tddprogram3psp.model.RelativeSizeRanges;
 import tddprogram3psp.util.SystemUtils;
+import tddprogram3psp.util.exception.EmptyListException;
 
 
 
@@ -84,6 +84,7 @@ public class Program3PSPGUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tabla de tamaños relativos");
+        setResizable(false);
 
         jpFondo.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
 
@@ -173,6 +174,7 @@ public class Program3PSPGUI extends javax.swing.JFrame {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
 
+        txtData.setEditable(false);
         txtData.setColumns(20);
         txtData.setRows(5);
         jScrollPane1.setViewportView(txtData);
@@ -187,11 +189,26 @@ public class Program3PSPGUI extends javax.swing.JFrame {
 
         lblVS.setText("VS");
 
+        txtVS.setEditable(false);
+        txtVS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtVSActionPerformed(evt);
+            }
+        });
+
+        txtS.setEditable(false);
+
         lblS.setText("S");
+
+        txtM.setEditable(false);
 
         lblM.setText("M");
 
+        txtL.setEditable(false);
+
         lblL.setText("L");
+
+        txtVL.setEditable(false);
 
         lblVL.setText("VL");
 
@@ -203,18 +220,10 @@ public class Program3PSPGUI extends javax.swing.JFrame {
                 .addGap(56, 56, 56)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblVS)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(lblS)
-                        .addGap(8, 8, 8))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(lblM)
-                        .addGap(6, 6, 6))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(lblL)
-                        .addGap(10, 10, 10))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(lblVL)
-                        .addGap(2, 2, 2)))
+                    .addComponent(lblS)
+                    .addComponent(lblM)
+                    .addComponent(lblL)
+                    .addComponent(lblVL))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnCalculate, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -323,7 +332,20 @@ public class Program3PSPGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCalculateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculateActionPerformed
-        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            RelativeSizeRanges relativeSizeRanges = new RelativeSizeRanges(dataList);
+            double[] ranges = relativeSizeRanges.calculateRelativeSizeRanges();
+            txtVS.setText(String.format("%.4f",ranges[0]));
+            txtS.setText(String.format("%.4f",ranges[1]));
+            txtM.setText(String.format("%.4f",ranges[2]));
+            txtL.setText(String.format("%.4f",ranges[3]));
+            txtVL.setText(String.format("%.4f",ranges[4]));
+            btnCalculate.setEnabled(false);
+            btnLoad.setEnabled(false);
+        } catch (EmptyListException ex) {
+            JOptionPane.showMessageDialog(this, "El archivo cargado no tiene datos", "Noy hay datos", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnCalculateActionPerformed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
@@ -373,6 +395,7 @@ public class Program3PSPGUI extends javax.swing.JFrame {
             }
             txtData.setText(stringData.toString());
             btnCalculate.setEnabled(true);
+            btnLoad.setEnabled(false);
         } catch (IOException ioe) {
             JOptionPane.showMessageDialog(this, "El archivo seleccionado no cumple con el formato establecido",
                     "Formato de Archivo Incorrecto", JOptionPane.ERROR_MESSAGE);
@@ -386,6 +409,10 @@ public class Program3PSPGUI extends javax.swing.JFrame {
             btnLoad.setEnabled(false);
         }
     }//GEN-LAST:event_btnLoadActionPerformed
+
+    private void txtVSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtVSActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtVSActionPerformed
 
     /**
      * @param args the command line arguments
