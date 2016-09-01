@@ -38,7 +38,10 @@ public class MathUtils {
     public static double calculateVariance(LinkedList list) throws EmptyListException {
         if (list.getHead() == null) {
             throw new EmptyListException();
-        } else {
+        } 
+        if (list.getHead().getNext() == null) {
+            throw new ArithmeticException("No se puede obtener la varianza de un solo dato");
+        }else {
             double variance, sum, n, mean;
             sum = 0;
             n = 0;

@@ -134,6 +134,19 @@ public class RelativeSizeRangesTest {
     }
     
     /**
+     * Prueba calcular rangos logarítmicos de una lista con un solo valor
+     * @throws tddprogram3psp.util.exception.EmptyListException
+    */
+    @Test(expected = ArithmeticException.class)
+    public void testLogarithmicRangesOneData() throws EmptyListException {
+        System.out.println("* Prueba calcular rangos logarítmicos de una lista con un solo valor");
+        LinkedList helperList = new LinkedList(new Node(6));
+        RelativeSizeRanges relativeSizeRanges = new RelativeSizeRanges(helperList);
+        relativeSizeRanges.calculateLogarithmicTransformation();                
+        relativeSizeRanges.calculateLogarithmicRanges();      
+    } 
+    
+    /**
      * Prueba calcular rangos logarítmicos
      * @throws tddprogram3psp.util.exception.EmptyListException
     */
@@ -146,7 +159,104 @@ public class RelativeSizeRangesTest {
         RelativeSizeRanges relativeSizeRanges = new RelativeSizeRanges(helperList);
         relativeSizeRanges.calculateLogarithmicTransformation();                
         relativeSizeRanges.calculateLogarithmicRanges();
-        
-    } 
+        double[] ranges = relativeSizeRanges.getRanges();
+        assertEquals(1.42, ranges[0], 0.01);
+        assertEquals(1.7807, ranges[1], 0.01);
+        assertEquals(2.1414, ranges[2], 0.01);
+        assertEquals(2.5021, ranges[3], 0.01);
+        assertEquals(2.8628, ranges[4], 0.01);    
+    }
     
+    /**
+     * Prueba calcular anti-logaritmos dada una lista vacía
+     * @throws tddprogram3psp.util.exception.EmptyListException
+    */
+    @Test(expected = EmptyListException.class)
+    public void testAntiLogarithmEmptyList() throws EmptyListException {
+        System.out.println("* Prueba calcular anti-logaritmos dada una lista vacía");
+        LinkedList helperList = new LinkedList();
+        RelativeSizeRanges relativeSizeRanges = new RelativeSizeRanges(helperList);
+        relativeSizeRanges.calculateLogarithmicTransformation(); 
+        relativeSizeRanges.calculateLogarithmicRanges();              
+        relativeSizeRanges.calculateAntiLogarithm();
+    }
+    
+    /**
+     * Prueba calcular anti-logaritmos dada una lista de un solo elemento
+     * @throws tddprogram3psp.util.exception.EmptyListException
+    */
+    @Test(expected = ArithmeticException.class)
+    public void testAntiLogarithmDatum() throws EmptyListException {
+        System.out.println("* Prueba calcular anti-logaritmos dada una lista de un solo elemento");
+        LinkedList helperList = new LinkedList(new Node(6));
+        RelativeSizeRanges relativeSizeRanges = new RelativeSizeRanges(helperList);
+        relativeSizeRanges.calculateLogarithmicTransformation(); 
+        relativeSizeRanges.calculateLogarithmicRanges();              
+        relativeSizeRanges.calculateAntiLogarithm();
+    }
+    
+    /**
+     * Prueba calcular anti-logaritmos
+     * @throws tddprogram3psp.util.exception.EmptyListException
+    */
+    @Test
+    public void testAntiLogarithm() throws EmptyListException {
+        System.out.println("* Prueba calcular anti-logaritmos");
+        LinkedList helperList = new LinkedList(new Node(6));
+        helperList.addNode(new Node(8.333));
+        helperList.addNode(new Node(12.333));
+        RelativeSizeRanges relativeSizeRanges = new RelativeSizeRanges(helperList);
+        relativeSizeRanges.calculateLogarithmicTransformation(); 
+        relativeSizeRanges.calculateLogarithmicRanges();              
+        relativeSizeRanges.calculateAntiLogarithm();
+        double[] ranges = relativeSizeRanges.getRanges();
+        assertEquals(4.14, ranges[0], 0.01);
+        assertEquals(5.93, ranges[1], 0.01);
+        assertEquals(8.51, ranges[2], 0.01);
+        assertEquals(12.21, ranges[3], 0.01);
+        assertEquals(17.51, ranges[4], 0.01);
+    }
+    
+    /**
+     * Prueba calcular rangos de tamaño relativos de una lista vacía
+     * @throws tddprogram3psp.util.exception.EmptyListException
+    */
+    @Test(expected = EmptyListException.class)
+    public void testRelativeSizeRangesEmptyList() throws EmptyListException {
+        System.out.println("* Prueba calcular rangos de tamaño relativos de una lista vacía");
+        LinkedList helperList = new LinkedList();
+        RelativeSizeRanges relativeSizeRanges = new RelativeSizeRanges(helperList);
+        relativeSizeRanges.calculateRelativeSizeRanges();
+    }
+    
+    /**
+     * Prueba calcular rangos de tamaño relativos de una lista de un solo valor
+     * @throws tddprogram3psp.util.exception.EmptyListException
+    */
+    @Test(expected = ArithmeticException.class)
+    public void testRelativeSizeRangesDatum() throws EmptyListException {
+        System.out.println("* Prueba calcular rangos de tamaño relativos de una lista de un solo valor");
+        LinkedList helperList = new LinkedList(new Node(6));
+        RelativeSizeRanges relativeSizeRanges = new RelativeSizeRanges(helperList);
+        relativeSizeRanges.calculateRelativeSizeRanges();
+    }
+    
+    /**
+     * Prueba calcular rangos de tamaño relativos
+     * @throws tddprogram3psp.util.exception.EmptyListException
+    */
+    @Test
+    public void testRelativeSizeRanges() throws EmptyListException {
+        System.out.println("* Prueba calcular rangos de tamaño relativos");
+        LinkedList helperList = new LinkedList(new Node(6));
+        helperList.addNode(new Node(8.333));
+        helperList.addNode(new Node(12.333));
+        RelativeSizeRanges relativeSizeRanges = new RelativeSizeRanges(helperList);
+        double[] ranges = relativeSizeRanges.calculateRelativeSizeRanges();
+        assertEquals(4.14, ranges[0], 0.01);
+        assertEquals(5.93, ranges[1], 0.01);
+        assertEquals(8.51, ranges[2], 0.01);
+        assertEquals(12.21, ranges[3], 0.01);
+        assertEquals(17.51, ranges[4], 0.01);
+    }
 }

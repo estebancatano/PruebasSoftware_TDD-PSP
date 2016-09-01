@@ -146,6 +146,17 @@ public class MathUtilsTest {
     }
     
     /**
+     * Prueba calcular varianza de un solo dato
+     * @throws tddprogram3psp.util.exception.EmptyListException
+     */
+    @Test(expected = ArithmeticException.class)
+    public void testVarianceDatum() throws EmptyListException {
+        System.out.println("* Prueba para calcular la varianza de un solo dato");
+        LinkedList helperList = new LinkedList(new Node(5));
+        MathUtils.calculateVariance(helperList);
+    }
+    
+    /**
      * Prueba para calcular la varianza de una lista con datos positivos enteros
      * @throws tddprogram3psp.util.exception.EmptyListException
      */
