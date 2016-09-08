@@ -7,6 +7,7 @@ package tddprogram4psp.ui;
 
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import tddprogram4psp.model.SimpsonsRule;
 
 /**
  *
@@ -26,7 +27,7 @@ public class Program4PSPGUI extends javax.swing.JFrame {
         btnExit.setIcon(imgExit);
         ImageIcon imgCalculate = new ImageIcon("src/tddprogram4psp/ui/resources/calculate.png");
         btnCalculate.setIcon(imgCalculate);
-        
+
     }
 
     /**
@@ -55,6 +56,7 @@ public class Program4PSPGUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Calculadora Integral de Simpson");
+        setResizable(false);
 
         jpBack.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
 
@@ -125,8 +127,20 @@ public class Program4PSPGUI extends javax.swing.JFrame {
         lX.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
         lX.setText("X");
 
+        txtX.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtXActionPerformed(evt);
+            }
+        });
+
         lDOF.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
         lDOF.setText("DOF");
+
+        txtDOF.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDOFKeyTyped(evt);
+            }
+        });
 
         lValue.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
         lValue.setText("Valor:");
@@ -145,27 +159,28 @@ public class Program4PSPGUI extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(65, 65, 65)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lDOF)
-                    .addComponent(lX, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtX)
-                    .addComponent(txtDOF, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE))
-                .addGap(36, 36, 36))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(txtValue, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(61, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lDOF)
+                            .addComponent(lX, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtX)
+                            .addComponent(txtDOF, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE))
+                        .addGap(36, 36, 36))))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtValue, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(12, 12, 12)
-                                .addComponent(lValue))))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(121, 121, 121)
-                        .addComponent(btnCalculate, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(114, Short.MAX_VALUE))
+                        .addComponent(btnCalculate, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(128, 128, 128)
+                        .addComponent(lValue)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -178,11 +193,11 @@ public class Program4PSPGUI extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lDOF)
                     .addComponent(txtDOF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
+                .addGap(30, 30, 30)
                 .addComponent(lValue)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtValue, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCalculate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -225,17 +240,35 @@ public class Program4PSPGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         ImageIcon imgExit = new ImageIcon("src/tddprogram3psp/ui/resources/exit.jpg");
         int respuesta = JOptionPane.showConfirmDialog(null, "¿Esta seguro(a) que desea salir?", "Alert!!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE, imgExit);
-        if(respuesta == 0) {
+        if (respuesta == 0) {
             System.exit(0);
         }
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnCalculateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculateActionPerformed
         // TODO add your handling code here:
-        txtX.setText("");
-        txtDOF.setText("");
-        txtValue.setText("");
+        try {
+            double x = Double.parseDouble(txtX.getText());
+            int dof = Integer.parseInt(txtDOF.getText());
+            SimpsonsRule simpsonsRule = new SimpsonsRule();
+            double value = simpsonsRule.calculateNumericalIntegration(x, dof);
+            txtValue.setText(String.format("%.5f", value));
+        } catch (NumberFormatException nfe) {
+            JOptionPane.showMessageDialog(this, "Ha ingresado un valor incorrecto, por favor revise", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnCalculateActionPerformed
+
+    private void txtDOFKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDOFKeyTyped
+        // TODO add your handling code here:
+        char caracter = evt.getKeyChar();
+        if (!Character.isDigit(caracter)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtDOFKeyTyped
+
+    private void txtXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtXActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtXActionPerformed
 
     /**
      * @param args the command line arguments
