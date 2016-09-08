@@ -11,6 +11,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import tddprogram4psp.model.implement.GammaFunction;
+import tddprogram4psp.model.implement.TFunction;
 
 /**
  *
@@ -40,7 +42,7 @@ public class SimpsonsRuleTest {
     /**
      * Test of calculateNumericalIntegration method, of class SimpsonsRule.
      */
-    @Test
+    /*@Test
     public void testCalculateNumericalIntegration() {
         System.out.println("calculateNumericalIntegration");
         double x = 0.0;
@@ -51,24 +53,189 @@ public class SimpsonsRuleTest {
         assertEquals(expResult, result, 0.0);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
-    }
+    }*/
 
     /**
      * Test of calculateIteration method, of class SimpsonsRule.
      */
     @Test
-    public void testCalculateIteration() {
-        System.out.println("calculateIteration");
-        double x = 0.0;
-        int dof = 0;
-        int numSeg = 0;
-        IFunction function = null;
+    public void testCalculateIterationIntegerNegativeValue() {
+        System.out.println("* Prueba iteracción con x entero negativo");
+        double x = -4;
+        int dof = 9;
+        int numSeg = 10;
+        IFunction function = new TFunction(dof,new GammaFunction());
         SimpsonsRule instance = new SimpsonsRule();
-        double expResult = 0.0;
+        double expResult = -0.49;
         double result = instance.calculateIteration(x, dof, numSeg, function);
-        assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(expResult, result, 0.01);
     }
     
+    /**
+     * Test of calculateIteration method, of class SimpsonsRule.
+     */
+    @Test
+    public void testCalculateIterationDoubleNegativeValue() {
+        System.out.println("* Prueba iteracción con x real negativo");
+        double x = -15.9;
+        int dof = 9;
+        int numSeg = 10;
+        IFunction function = new TFunction(dof,new GammaFunction());
+        SimpsonsRule instance = new SimpsonsRule();
+        double expResult = -0.45;
+        double result = instance.calculateIteration(x, dof, numSeg, function);
+        assertEquals(expResult, result, 0.01);
+    }
+    
+    /**
+     * Test of calculateIteration method, of class SimpsonsRule.
+     */
+    @Test
+    public void testCalculateIterationDZeroValue() {
+        System.out.println("* Prueba iteracción con x cero");
+        double x = 0;
+        int dof = 9;
+        int numSeg = 10;
+        IFunction function = new TFunction(dof,new GammaFunction());
+        SimpsonsRule instance = new SimpsonsRule();
+        double expResult = 0;
+        double result = instance.calculateIteration(x, dof, numSeg, function);
+        assertEquals(expResult, result, 0.01);
+    }
+    
+    /**
+     * Test of calculateIteration method, of class SimpsonsRule.
+     */
+    @Test
+    public void testCalculateIterationIntegerPositiveValue() {
+        System.out.println("* Prueba iteracción con x entero positivo");
+        double x = 15;
+        int dof = 9;
+        int numSeg = 10;
+        IFunction function = new TFunction(dof,new GammaFunction());
+        SimpsonsRule instance = new SimpsonsRule();
+        double expResult = 0.46;
+        double result = instance.calculateIteration(x, dof, numSeg, function);
+        assertEquals(expResult, result, 0.01);
+    }
+    
+    /**
+     * Test of calculateIteration method, of class SimpsonsRule.
+     */
+    @Test
+    public void testCalculateIterationDoublePositiveValue() {
+        System.out.println("* Prueba iteracción con x real positivo");
+        double x = 40;
+        int dof = 9;
+        int numSeg = 10;
+        IFunction function = new TFunction(dof,new GammaFunction());
+        SimpsonsRule instance = new SimpsonsRule();
+        double expResult = 0.53;
+        double result = instance.calculateIteration(x, dof, numSeg, function);
+        assertEquals(expResult, result, 0.1);
+    }
+    
+    /**
+     * Test of calculateIteration method, of class SimpsonsRule.
+     */
+    @Test
+    public void testCalculateIterationDOFPositiveValue() {
+        System.out.println("* Prueba iteracción con dof positivo");
+        double x = 0.8;
+        int dof = 9;
+        int numSeg = 10;
+        IFunction function = new TFunction(dof,new GammaFunction());
+        SimpsonsRule instance = new SimpsonsRule();
+        double expResult = 0.28;
+        double result = instance.calculateIteration(x, dof, numSeg, function);
+        assertEquals(expResult, result, 0.01);
+    }
+    
+     /**
+     * Test of calculateIteration method, of class SimpsonsRule.
+     */
+    @Test(expected = ArithmeticException.class)
+    public void testCalculateIterationDOFZeroValue() {
+        System.out.println("* Prueba iteracción con dof cero");
+        double x = 0.8;
+        int dof = 0;
+        int numSeg = 10;
+        IFunction function = new TFunction(dof,new GammaFunction());
+        SimpsonsRule instance = new SimpsonsRule();
+        instance.calculateIteration(x, dof, numSeg, function);
+        //assertEquals(expResult, result, 0.01);
+    }
+    
+     /**
+     * Test of calculateIteration method, of class SimpsonsRule.
+     */
+    @Test(expected = ArithmeticException.class)
+    public void testCalculateIterationDOFNegativeValue() {
+        System.out.println("* Prueba iteracción con dof negativo");
+        double x = 0.8;
+        int dof = -9;
+        int numSeg = 10;
+        IFunction function = new TFunction(dof,new GammaFunction());
+        SimpsonsRule instance = new SimpsonsRule();
+        instance.calculateIteration(x, dof, numSeg, function);
+    }
+    
+    /**
+     * Test of calculateIteration method, of class SimpsonsRule.
+     */
+    @Test
+    public void testCalculateIterationNumSegPositiveValue() {
+        System.out.println("* Prueba iteracción con num_seg positivo");
+        double x = 0.8;
+        int dof = 9;
+        int numSeg = 10;
+        IFunction function = new TFunction(dof,new GammaFunction());
+        SimpsonsRule instance = new SimpsonsRule();
+        double expResult = 0.28;
+        double result = instance.calculateIteration(x, dof, numSeg, function);
+        assertEquals(expResult, result, 0.01);
+    }
+    
+     /**
+     * Test of calculateIteration method, of class SimpsonsRule.
+     */
+    @Test(expected = ArithmeticException.class)
+    public void testCalculateIterationNumSegZeroValue() {
+        System.out.println("* Prueba iteracción con num_seg cero");
+        double x = 0.8;
+        int dof = 9;
+        int numSeg = 0;
+        IFunction function = new TFunction(dof,new GammaFunction());
+        SimpsonsRule instance = new SimpsonsRule();
+        instance.calculateIteration(x, dof, numSeg, function);
+        //assertEquals(expResult, result, 0.01);
+    }
+    
+     /**
+     * Test of calculateIteration method, of class SimpsonsRule.
+     */
+    @Test(expected = ArithmeticException.class)
+    public void testCalculateIterationNumSegNegativeValue() {
+        System.out.println("* Prueba iteracción con num_seg negativo");
+        double x = 0.8;
+        int dof = 9;
+        int numSeg = -10;
+        IFunction function = new TFunction(dof,new GammaFunction());
+        SimpsonsRule instance = new SimpsonsRule();
+        instance.calculateIteration(x, dof, numSeg, function);
+    }
+   
+    /**
+     * Test of calculateIteration method, of class SimpsonsRule.
+     */
+    @Test(expected = ArithmeticException.class)
+    public void testCalculateIterationNumSegOddValue() {
+        System.out.println("* Prueba iteracción con num_seg negativo");
+        double x = 0.8;
+        int dof = 9;
+        int numSeg = 11;
+        IFunction function = new TFunction(dof,new GammaFunction());
+        SimpsonsRule instance = new SimpsonsRule();
+        instance.calculateIteration(x, dof, numSeg, function);
+    }
 }
