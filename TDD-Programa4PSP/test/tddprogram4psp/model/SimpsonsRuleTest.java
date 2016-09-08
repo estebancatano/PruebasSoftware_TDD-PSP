@@ -42,18 +42,39 @@ public class SimpsonsRuleTest {
     /**
      * Test of calculateNumericalIntegration method, of class SimpsonsRule.
      */
-    /*@Test
-    public void testCalculateNumericalIntegration() {
-        System.out.println("calculateNumericalIntegration");
-        double x = 0.0;
-        int dof = 0;
+    @Test
+    public void testCalculateNumericalIntegrationTest1() {
+        double x = 1.1;
+        int dof = 9;
+        System.out.println("* Integración numérica para x=" + x + " con " + dof + " grados de libertad");
         SimpsonsRule instance = new SimpsonsRule();
-        double expResult = 0.0;
+        double expResult = 0.35006;
         double result = instance.calculateNumericalIntegration(x, dof);
-        assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }*/
+        assertEquals(expResult, result, 0.00001);
+    }
+    
+    
+     @Test
+    public void testCalculateNumericalIntegrationTest2() {
+        double x = 1.1812;
+        int dof = 10;
+        System.out.println("* Integración numérica para x=" + x + " con " + dof + " grados de libertad");
+        SimpsonsRule instance = new SimpsonsRule();
+        double expResult = 0.36757;
+        double result = instance.calculateNumericalIntegration(x, dof);
+        assertEquals(expResult, result, 0.00001);
+    }
+    
+     @Test
+    public void testCalculateNumericalIntegrationTest3() {
+        double x = 2.750;
+        int dof = 30;
+        System.out.println("* Integración numérica para x=" + x + " con " + dof + " grados de libertad");
+        SimpsonsRule instance = new SimpsonsRule();
+        double expResult = 0.49500;
+        double result = instance.calculateNumericalIntegration(x, dof);
+        assertEquals(expResult, result, 0.00001);
+    }
 
     /**
      * Test of calculateIteration method, of class SimpsonsRule.

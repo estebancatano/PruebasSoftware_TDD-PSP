@@ -5,13 +5,32 @@
  */
 package tddprogram4psp.model;
 
+import tddprogram4psp.model.implement.GammaFunction;
+import tddprogram4psp.model.implement.TFunction;
+
 /**
  *
  * @author esteban.catanoe
  */
 public class SimpsonsRule {
     public double calculateNumericalIntegration(double x, int dof){
-        throw new UnsupportedOperationException();
+        int numSeg;
+        double error;
+        double result;
+        double aux;
+        double diff;
+        IFunction function = new TFunction(dof, new GammaFunction());
+        numSeg = 10;
+        error = 0.00001;
+        diff = 1;
+        result = calculateIteration(x, dof, numSeg, function);
+        while (diff >= error) {            
+            aux = result;
+            numSeg = numSeg * 2;
+            result = calculateIteration(x, dof, numSeg, function);
+            diff = Math.abs(result - aux);
+        }
+        return result;
     }
     
     public double calculateIteration(double x, int dof, int numSeg, IFunction function){

@@ -15,7 +15,7 @@ public class GammaFunction implements IFunction {
 
     @Override
     public double evaluate(double value) {
-        System.out.println(value);
+        //System.out.println(value);
         if (value == 1.0) {
             return 1.0;
         } else if (value == 0.5) {
