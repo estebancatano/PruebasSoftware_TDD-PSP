@@ -11,12 +11,21 @@ import tddprogram4psp.model.IFunction;
  *
  * @author esteban.catanoe
  */
-public class GammaFunction implements IFunction{
+public class GammaFunction implements IFunction {
 
     @Override
     public double evaluate(double value) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-}
+        System.out.println(value);
+        if (value == 1.0) {
+            return 1.0;
+        } else if (value == 0.5) {
+            return Math.sqrt(Math.PI);
+        } else if (value > 0 && (value == Math.floor(value) || value*2.0 == Math.floor(value*2.0))) {
+            return (value - 1.0) * evaluate(value - 1.0);
+        } else {
+            throw new ArithmeticException("La función no está definida para el valor dado");
+        }
 
+    }
+
+}
